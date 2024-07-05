@@ -1,6 +1,8 @@
-package com.example.tasklist.data
+package com.example.tasklist.data.entities
 
 import android.provider.BaseColumns
+import com.example.tasklist.utils.DatabaseManager
+
 data class Task(var id: Int, var name: String, var done: Boolean = false) {
 
     /*Los miembros definidos dentro de "COMPANION OBJET" pueden ser
@@ -13,7 +15,13 @@ data class Task(var id: Int, var name: String, var done: Boolean = false) {
 
         const val COLUMN_NAME_DONE = "done"  //  Define el nombre de OTRA COLUMNA en la tabla, en este caso, "done".
 
-
+        const val COLUMN_NAME_CATEGORY = "category_id"
+        val COLUMN_NAMES = arrayOf(
+            DatabaseManager.COLUMN_NAME_ID,
+            COLUMN_NAME_TITLE,
+            COLUMN_NAME_CATEGORY,
+            COLUMN_NAME_DONE
+        )
         /* OJO:
         Lo de abajo ES una constante que contiene una cadena de texto que representa una
         instrucción SQL para crear la tabla "Tasks". La tabla tendrá las siguientes columnas:
@@ -26,9 +34,13 @@ data class Task(var id: Int, var name: String, var done: Boolean = false) {
          */
         const val SQL_CREATE_TABLE =
             "CREATE TABLE $TABLE_NAME (" +
-                    "${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "${DatabaseManager.COLUMN_NAME_ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "$COLUMN_NAME_TITLE TEXT," +
-                    "$COLUMN_NAME_DONE INTEGER)"
+                    "$COLUMN_NAME_CATEGORY INTEGER," +
+                    "$COLUMN_NAME_DONE BOOLEAN, " +
+                    "CONSTRAINT fk_category " +
+                    "FOREIGN KEY($COLUMN_NAME_CATEGORY) " +
+                    "REFERENCES ${Category.TABLE_NAME}(${DatabaseManager.COLUMN_NAME_ID}) ON DELETE CASCADE)"
 
         /*Es una constante que contiene una cadena de texto que representa
         una instrucción SQL para eliminar la tabla "Tasks" si esta existe.

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:background="#FBF4F4"> <!-- Encierra contenido de las listas creadas -->
 
     <CheckBox
         android:id="@+id/doneCheckBox"
@@ -15,7 +16,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="18sp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
         tools:text="TextView"/>
 
     <ImageButton
@@ -25,5 +27,6 @@
         android:background="@drawable/ic_delete"
         android:padding="16dp"
         android:layout_marginEnd="16dp"
-        android:contentDescription="Delete task" />
+        android:contentDescription="Delete task"/>
+
 </LinearLayout>
